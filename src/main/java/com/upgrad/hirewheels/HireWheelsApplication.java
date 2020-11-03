@@ -1,5 +1,6 @@
 package com.upgrad.hirewheels;
 
+import com.upgrad.hirewheels.dao.RoleDao;
 import com.upgrad.hirewheels.dao.UsersDao;
 import com.upgrad.hirewheels.entities.Role;
 import com.upgrad.hirewheels.entities.Users;
@@ -19,6 +20,13 @@ public class HireWheelsApplication {
 
 		ApplicationContext context =SpringApplication.run(HireWheelsApplication.class, args);
 		UsersDao usersDao = context.getBean(UsersDao.class);
+		RoleDao roleDao = context.getBean(RoleDao.class);
+
+		Role admin =new Role();
+        admin.setRoleName("ADMIN");
+
+        Role user = new Role();
+        user.setRoleName("USER");
 
 		Users users1 = new Users();
           users1.setFirstName("Yashwanth");
@@ -27,8 +35,8 @@ public class HireWheelsApplication {
           users1.setEmail("samalayashwanth.95@outlook.com");
           users1.setMobileNo("8790792928");
           users1.setWalletMoney(500);
-		users1.setRole(users1.getRole());
-          users1 = UsersDao.save(users1);
+		users1.setRole("ADMIN");
+          users1 = usersDao.save(users1);
 
 		Users users2 = new Users();
 		users2.setFirstName("Deepika");
@@ -37,8 +45,8 @@ public class HireWheelsApplication {
 		users2.setEmail("exampple@gmail.com");
 		users2.setMobileNo("123456116");
 		users2.setWalletMoney(400);
-		users2.setRole(users2.getRole());
-		users2 = UsersDao.save(users2);
+		users2.setRole("USER");
+		users2 = usersDao.save(users2);
 
 		Users users3 = new Users();
 		users3.setFirstName("Alex");
@@ -47,8 +55,8 @@ public class HireWheelsApplication {
 		users3.setEmail("upgrad@outlook.com");
 		users3.setMobileNo("2761021649");
 		users3.setWalletMoney(50000);
-		users3.setRole(users3.getRole());
-		users3 = UsersDao.save(users3);
+		users3.setRole("USER");
+		users3 = usersDao.save(users3);
 
 		Users users4 = new Users();
 		users4.setFirstName("Danilo");
@@ -57,8 +65,8 @@ public class HireWheelsApplication {
 		users4.setEmail("Danilolima@outlook.com");
 		users4.setMobileNo("41234544646");
 		users4.setWalletMoney(20000);
-		users4.setRole(users4.getRole());
-		users4 = UsersDao.save(users4);
+		users4.setRole("USER");
+		users4 = usersDao.save(users4);
 
 		Users users5 = new Users();
 		users5.setFirstName("Michael");
@@ -67,10 +75,10 @@ public class HireWheelsApplication {
 		users5.setEmail("MichaelThomas@gamil.com");
 		users5.setMobileNo("21345464679");
 		users5.setWalletMoney(1000);
-		users3.setRole(users5.getRole());
-		users5 = UsersDao.save(users5);
+		users3.setRole("USER");
+		users5 = usersDao.save(users5);
 
-		UsersDao.saveAll(List.of(users1, users2, users3, users4, users5));
+		//usersDao.saveAll(List.of(users1, users2, users3, users4, users5));
 
 		System.out.println("*************find By First Name*************");
 		usersDao.findByFirstName("Yashwanth")
@@ -87,6 +95,16 @@ public class HireWheelsApplication {
 		System.out.println("*************find By Mobile Number*************");
 		usersDao.findByEmail("8790792928")
 				.forEach(users -> System.out.println(users.getMobileNo()));
+
+		System.out.println("**************Roles***********");
+		roleDao.findAll().forEach(System.out::println);
+
+		System.out.println("**************Users***********");
+		usersDao.findAll().forEach(System.out::println);
+
+		System.out.println("**************Admin Role***********");
+		roleDao.findById(admin.getRoleId())
+				.ifPresent(role -> role.getRoleName());
 	}
 
 }

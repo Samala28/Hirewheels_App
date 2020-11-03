@@ -14,7 +14,7 @@ public class Location {
 @Column(length = 6,nullable = false)
     private String pincode;
 
-
+@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 @JoinColumn(name="city_id",nullable = false)
     private City city;
 
@@ -65,6 +65,7 @@ public class Location {
                 ", locatioName = "+locationName+
                 ", address = "+address+
                 ", pincode = "+pincode+
+                ", city = "+city+
                 '}';
     }
 }

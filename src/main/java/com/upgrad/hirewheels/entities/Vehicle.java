@@ -18,15 +18,15 @@ public class Vehicle {
     @Column(nullable = false, length = 500)
     private String vehicleImageUrl;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_subcategory_id",nullable = false)
     private VehicleSubcategory vehicleSubcategory;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name="location_id",nullable = false)
     private Location location;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "fuel_type_id",nullable = false)
     private FuelType fuelType;
 

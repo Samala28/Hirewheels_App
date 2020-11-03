@@ -12,7 +12,7 @@ public class VehicleSubcategory {
 @Column(nullable = false)
     private float pricePerDay;
 
-
+@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 @JoinColumn(name = "vehicle_category_id",nullable = false)
     private VehicleCategory vehicleCategory;
 

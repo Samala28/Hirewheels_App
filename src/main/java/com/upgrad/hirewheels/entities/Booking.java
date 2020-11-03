@@ -17,15 +17,15 @@ public class Booking {
     @Column(nullable = false)
     private float amount;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicle_id", nullable = false)
     private Vehicle vehicle;
 
-
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 

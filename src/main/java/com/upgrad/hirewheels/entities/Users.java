@@ -20,9 +20,9 @@ private String password;
 @Column
     private float walletMoney = 10000.00f;
 
-
+@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 @JoinColumn(name = "role_id",nullable = false)
-    private Role role;
+    private String role;
 
     public int getUserId() {
         return userId;
@@ -80,11 +80,11 @@ private String password;
         this.walletMoney = walletMoney;
     }
 
-    public Role getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
