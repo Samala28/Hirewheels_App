@@ -2,9 +2,15 @@ package com.upgrad.hirewheels;
 
 import com.upgrad.hirewheels.dao.RoleDao;
 import com.upgrad.hirewheels.dao.UsersDao;
+import com.upgrad.hirewheels.dao.VehicleDao;
+import com.upgrad.hirewheels.entities.Booking;
 import com.upgrad.hirewheels.entities.Role;
 import com.upgrad.hirewheels.entities.Users;
+import com.upgrad.hirewheels.entities.Vehicle;
+import com.upgrad.hirewheels.services.*;
+import org.apache.catalina.User;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -12,21 +18,57 @@ import org.springframework.context.ApplicationContext;
 import java.util.List;
 
 import static jdk.nashorn.internal.objects.NativeArray.forEach;
+import static jdk.nashorn.internal.objects.NativeArray.push;
 
 @SpringBootApplication
 public class HireWheelsApplication {
+
 
 	public static void main(String[] args) {
 
 		ApplicationContext context =SpringApplication.run(HireWheelsApplication.class, args);
 		UsersDao usersDao = context.getBean(UsersDao.class);
 		RoleDao roleDao = context.getBean(RoleDao.class);
+		UserService userService = context.getBean(UserService.class);
+		BookingService bookingService =context.getBean(BookingService.class);
+		VehicleService vehicleService =context.getBean(VehicleService.class);
 
-		Role admin =new Role();
+		InitService initService = context.getBean(InitService.class);
+		initService.start();
+
+		AdminService adminService = context.getBean(AdminService.class);
+		Vehicle vehicle = new Vehicle();
+		adminService.registerVehicle(vehicle);
+        adminService.changeAvailability(1);
+
+        Users users = new Users();
+		Booking booking = new Booking();
+		if(users.getWalletMoney()>booking.getAmount()){
+			booking.setBookingId(10);
+			booking = bookingService.addBooking(booking);
+		}else{
+			try {
+				throw new Exception("Insufficient Balance. Please Check With Admin. ");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+          Users users1 = new Users();
+         Vehicle vehicle1 = new Vehicle();
+	//	vehicle1.setVehicleId(users1.getUserId());
+		users1.setUserId(10);
+		vehicle1.setVehicleId(users1.getUserId());
+		vehicle1 = (Vehicle) vehicleService.getVehicleByUserID();
+
+
+/*		Role admin =new Role();
         admin.setRoleName("ADMIN");
 
         Role user = new Role();
         user.setRoleName("USER");
+
+
 
 		Users users1 = new Users();
           users1.setFirstName("Yashwanth");
@@ -104,7 +146,7 @@ public class HireWheelsApplication {
 
 		System.out.println("**************Admin Role***********");
 		roleDao.findById(admin.getRoleId())
-				.ifPresent(role -> role.getRoleName());
+				.ifPresent(role -> role.getRoleName());  */
 	}
 
 }

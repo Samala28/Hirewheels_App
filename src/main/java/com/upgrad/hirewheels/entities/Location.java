@@ -12,7 +12,7 @@ public class Location {
 @Column(length = 100,nullable = false)
     private String address;
 @Column(length = 6,nullable = false)
-    private String pincode;
+    private long pincode;
 
 @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 @JoinColumn(name="city_id",nullable = false)
@@ -42,11 +42,11 @@ public class Location {
         this.address = address;
     }
 
-    public String getPincode() {
+    public long getPincode() {
         return pincode;
     }
 
-    public void setPincode(String pincode) {
+    public void setPincode(long pincode) {
         this.pincode = pincode;
     }
 
