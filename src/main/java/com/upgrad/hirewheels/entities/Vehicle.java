@@ -30,6 +30,18 @@ public class Vehicle {
     @JoinColumn(name = "fuel_type_id",nullable = false)
     private FuelType fuelType;
 
+    public Vehicle() {
+    }
+
+    public Vehicle(int vehicleId, String vehicleModel) {
+        this.vehicleId = vehicleId;
+        this.vehicleModel = vehicleModel;
+    }
+
+    public Vehicle(String vehicleModel) {
+        this.vehicleModel = vehicleModel;
+    }
+
     public int getVehicleId() {
         return vehicleId;
     }

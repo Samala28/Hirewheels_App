@@ -2,22 +2,14 @@ package com.upgrad.hirewheels;
 
 import com.upgrad.hirewheels.dao.RoleDao;
 import com.upgrad.hirewheels.dao.UsersDao;
-import com.upgrad.hirewheels.dao.VehicleDao;
 import com.upgrad.hirewheels.entities.Booking;
-import com.upgrad.hirewheels.entities.Role;
 import com.upgrad.hirewheels.entities.Users;
 import com.upgrad.hirewheels.entities.Vehicle;
 import com.upgrad.hirewheels.services.*;
-import org.apache.catalina.User;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
-import java.util.List;
-
-import static jdk.nashorn.internal.objects.NativeArray.forEach;
 import static jdk.nashorn.internal.objects.NativeArray.push;
 
 @SpringBootApplication
@@ -59,7 +51,7 @@ public class HireWheelsApplication {
 	//	vehicle1.setVehicleId(users1.getUserId());
 		users1.setUserId(10);
 		vehicle1.setVehicleId(users1.getUserId());
-		vehicle1 = (Vehicle) vehicleService.getVehicleByUserID();
+		vehicle1 = (Vehicle) vehicleService.getVehicleByUserID(vehicle);
 
 
 /*		Role admin =new Role();

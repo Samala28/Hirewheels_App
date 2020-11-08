@@ -2,7 +2,6 @@ package com.upgrad.hirewheels.services;
 
 import com.upgrad.hirewheels.dao.UsersDao;
 import com.upgrad.hirewheels.dao.VehicleDao;
-import com.upgrad.hirewheels.entities.Users;
 import com.upgrad.hirewheels.entities.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,12 +21,12 @@ public class VehicleServiceImpl implements VehicleService{
     }
 
     @Override
-    public List<Vehicle> getVehicleByUserID() {
-        return vehicleDao.findAll();
+    public Vehicle getVehicleByUserID(Vehicle vehicle) {
+        return (Vehicle) vehicleDao.findAll();
     }
 
     @Override
-    public List<Vehicle> getAvailableVehicles() {
+    public List<Vehicle> getAvailableVehicles(List<Vehicle> vehicle) {
         return vehicleDao.findAll();
     }
 
