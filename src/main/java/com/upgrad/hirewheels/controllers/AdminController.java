@@ -8,10 +8,14 @@ import com.upgrad.hirewheels.utils.DTOEntityConverter;
 import com.upgrad.hirewheels.utils.EntityDTOConverter;
 import com.upgrad.hirewheels.validator.AdminRequestValidator;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.ParseException;
 
 @RestController
 @RequestMapping(value="/hirewheels/v1")
@@ -38,20 +42,29 @@ public class AdminController {
     @Autowired
     DTOEntityConverter dtoEntityConverter;
 
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+
+
     @PostMapping(value="/vehicles")
     public ResponseEntity addVehicle (@RequestBody VehicleDTO vehicleDTO) {
         ResponseEntity responseEntity = null;
-        adminRequestValidator.validateVehicle(vehicleDTO);
-        Vehicle newVehicle = modelmapper.map(vehicleDTO, Vehicle.class);
-        Vehicle savedVehicle = vehicleService.getAllVehicles(newVehicle);
-        VehicleDTO savedVehicleDto = modelmapper.map(savedVehicle, VehicleDTO.class);
-        responseEntity = new ResponseEntity<>(savedVehicleDto, HttpStatus.CREATED);
-
+        try {
+            adminRequestValidator.validateVehicle(vehicleDTO);
+            Vehicle newVehicle = modelmapper.map(vehicleDTO, Vehicle.class);
+            Vehicle savedVehicle = vehicleService.getAllVehicles(newVehicle);
+            VehicleDTO savedVehicleDto = modelmapper.map(savedVehicle, VehicleDTO.class);
+            responseEntity = new ResponseEntity<>(savedVehicleDto, HttpStatus.CREATED);
+            logger.debug("Add a New Vehicle",responseEntity);
+        }catch (ParseException e){
+            e.printStackTrace();
+            logger.error("Exception:" , e);
+        }
         return responseEntity;
     }
 
         @PutMapping("/vehicles/{vehicleid}")
         public ResponseEntity changeVehicleAvailability(@RequestBody VehicleDTO vehicleDTO ,@PathVariable int vehicleid){
+            logger.debug("Chage vehicle availability Status: Vehicle Id :" + vehicleid, vehicleDTO);
         ResponseEntity responseEntity = null;
         int availability_status = vehicleDTO.getAvailabilityStaus();
             adminRequestValidator.validateChangeVehicleAvailablity( availability_status);
