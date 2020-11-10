@@ -1,7 +1,5 @@
 package com.upgrad.hirewheels.dto;
 
-import com.upgrad.hirewheels.entities.FuelType;
-
 public class VehicleDTO {
 
     private int vehicleId;
@@ -12,7 +10,6 @@ public class VehicleDTO {
     private String vehicleImageUrl;
     private int vehicleSubcategoryId;
     private int locationId;
-    private FuelType fuelType;
     private int fuelTypeId;
 
     public int getVehicleId() {
@@ -77,14 +74,6 @@ public class VehicleDTO {
 
     public void setLocationId(int locationId) {
         this.locationId = locationId;
-    }
-
-    public FuelType getFuelType() {
-        return fuelType;
-    }
-
-    public void setFuelType(FuelType fuelType) {
-        this.fuelType = fuelType;
     }
 
     public int getFuelTypeId() {

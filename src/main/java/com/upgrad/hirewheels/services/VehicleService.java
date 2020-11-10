@@ -9,6 +9,6 @@ public interface VehicleService {
     public List<Vehicle> getAllVehicles();
     public Vehicle getVehicleByUserID(Vehicle vehicle);
     public List<Vehicle> getAvailableVehicles(List<Vehicle> vehicle);
-
+   public Vehicle updateVehicleDetails(int vehicleId);
 
 }

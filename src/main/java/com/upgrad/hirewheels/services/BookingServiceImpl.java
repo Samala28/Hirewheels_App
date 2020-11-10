@@ -16,4 +16,6 @@ public Booking booking;
     public Booking addBooking(Booking booking) {
         return bookingDao.save(booking);
     }
+
+
 }
