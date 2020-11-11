@@ -2,7 +2,7 @@ package com.upgrad.hirewheels.services;
 
 import com.upgrad.hirewheels.dao.*;
 import com.upgrad.hirewheels.entities.*;
-import org.apache.catalina.User;
+import com.upgrad.hirewheels.utils.DTOEntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -45,6 +45,7 @@ public class InitServiceImpl implements InitService{
       addFuelType();
       addLocation();
   }
+
 
     private void addLocation() {
         Location location = new Location(1, "Worli",

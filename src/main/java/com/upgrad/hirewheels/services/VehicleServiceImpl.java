@@ -3,6 +3,7 @@ package com.upgrad.hirewheels.services;
 import com.upgrad.hirewheels.dao.UsersDao;
 import com.upgrad.hirewheels.dao.VehicleDao;
 import com.upgrad.hirewheels.entities.Vehicle;
+import com.upgrad.hirewheels.exceptions.VehicleNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class VehicleServiceImpl implements VehicleService{
     public UsersDao usersDao;
 
     @Override
-    public List<Vehicle> getAllVehicles() {
+    public List<Vehicle> getAllVehicles(List<Vehicle> vehicleList) {
         return vehicleDao.findAll();
     }
 
@@ -35,9 +36,20 @@ public class VehicleServiceImpl implements VehicleService{
 
     @Override
     public Vehicle updateVehicleDetails(int vehicleId) {
-        List<Vehicle> id ;
-        Vehicle savedVehicle = getAvailableVehicles(id);
+        List<Vehicle> vehicleList = null;
+        Vehicle savedVehicle = (Vehicle) getAvailableVehicles(vehicleList);
         return vehicleDao.save(savedVehicle);
+    }
+
+    @Override
+    public boolean deleteVehicleDetails(int vehicleId) throws VehicleNotFoundException {
+        vehicleDao.deleteById(vehicleId);
+        return true;
+    }
+
+    @Override
+    public List<Vehicle> fetchAllVehicles() {
+        return null;
     }
 
 }

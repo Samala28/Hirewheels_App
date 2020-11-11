@@ -46,6 +46,17 @@ public class VehicleServiceTest {
         Assertions.assertEquals("save test", getVehicle.getVehicleModel());
     }
 
+
+    @Test
+    public void testGetAllVehicles(){
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleId(1);
+        Vehicle getAllVehicles =  vehicleService.getAllVehicles(vehicle);
+        Assertions.assertNotNull(getAllVehicles);
+        Assertions.assertTrue(getAllVehicles.getVehicleId() != 0);
+        Assertions.assertEquals(1, getAllVehicles.getVehicleId());
+    }
+
     @Test
     public void testGetAvailableVehicles(){
         Vehicle vehicle = new Vehicle();
